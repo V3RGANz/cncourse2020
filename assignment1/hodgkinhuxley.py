@@ -16,7 +16,7 @@ class HodgkinHuxleyModel:
     EK = -77  # mV
     ENa = 50  # mV
 
-    def __init__(self, capacity: float = 1.):
+    def __init__(self, capacity = 1.):
         self.capacity = capacity
 
     def get_calculate_derivatives_f(self, inj_current):
@@ -39,11 +39,12 @@ class HodgkinHuxleyModel:
     def __call__(self, inj_current, time_ms, v0):
         calculate_derivatives = self.get_calculate_derivatives_f(inj_current)
         y0 = np.array([v0, _n_inf(v0), _m_inf(v0), _h_inf(v0)])
-        (vm, n, m, h), _ = odeint(calculate_derivatives, y0, time_ms)
+        result = odeint(calculate_derivatives, y0, time_ms)
+        vm, n, m, h = result[:, 0], result[:, 1], result[:, 2], result[:, 3]
         return vm, n, m, h
 
 
-def _alpha_n(v: np.ndarray):
+def _alpha_n(v):
     return 0.1 * (v + 55) / (1 - np.exp(-0.1 * (v + 55)))
 
 
