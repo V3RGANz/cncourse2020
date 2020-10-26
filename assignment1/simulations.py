@@ -21,7 +21,7 @@ def simulation1(a, at, b, bt, c, ct, d, dt):
 
     inj_array = np.array([inj_current(t) for t in time_ms])
 
-    return vm, n, m, h, inj_array
+    return time_ms, vm, n, m, h, inj_array
 
 
 def simulation2(a, b):
@@ -41,4 +41,4 @@ def simulation2(a, b):
 
     inj_array = np.array([inj_current(t) for t in time_ms])
 
-    return vm, n, m, h, inj_array
+    return time_ms, vm, n, m, h, inj_array
